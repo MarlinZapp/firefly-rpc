@@ -1,7 +1,7 @@
-## Building
+## Usage
 
-- Use Rustup to install the Rust nightly toolchain.
-- Install wasm-pack, for example with `cargo install wasm-pack`.
-- Run `wasm-pack build --target web` to build the rust code into a js package.
-- Use a web server without CORS to serve the files.
-  - For example execute `sfz --port 8000 --coi -r` in the root directory.
+Go to the [Thrift Server](https://github.com/MarlinZapp/firefly-thrift-server) and [Thrift Client](https://github.com/MarlinZapp/firefly-thrift-client) repositories.
+
+With `cargo build --release`, you can create the up to date releases of both of them.
+
+Copy the releases into a `thrift/client` and `thrift/server` folder and adjust the paths in the `start.sh`.
