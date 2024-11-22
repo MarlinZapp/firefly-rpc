@@ -1,0 +1,17 @@
+{
+  "name": "firefly-rpc",
+  "version": "1.0.0",
+  "description": "- Use Rustup to install the Rust nightly toolchain. - Install wasm-pack, for example with `cargo install wasm-pack`. - Run `wasm-pack build --target web` to build the rust code into a js package. - Use a web server without CORS to serve the files.   - For example execute `sfz --port 8000 --coi -r` in the root directory.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "thrift": "^0.21.0"
+  },
+  "devDependencies": {
+    "@types/thrift": "^0.10.17"
+  }
+}
