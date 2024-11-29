@@ -3,406 +3,398 @@
 //
 // DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
 //
-"use strict";
-
-var thrift = require('thrift');
-var Thrift = thrift.Thrift;
-var Q = thrift.Q;
-var Int64 = require('node-int64');
+const thrift = require('thrift');
+const Thrift = thrift.Thrift;
+const Int64 = require('node-int64');
 
 
-var ttypes = require('./firefly_types');
+const ttypes = require('./firefly_types');
 //HELPER FUNCTIONS AND STRUCTURES
 
-var FireflyService_getPhaseByFireflyPosition_args = function(args) {
-  this.position = null;
-  if (args) {
-    if (args.position !== undefined && args.position !== null) {
-      this.position = new ttypes.Position(args.position);
+const FireflyService_getPhaseByFireflyPosition_args = class {
+  constructor(args) {
+    this.position = null;
+    if (args) {
+      if (args.position !== undefined && args.position !== null) {
+        this.position = new ttypes.Position(args.position);
+      }
     }
   }
-};
-FireflyService_getPhaseByFireflyPosition_args.prototype = {};
-FireflyService_getPhaseByFireflyPosition_args.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true) {
-    var ret = input.readFieldBegin();
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
-    }
-    switch (fid) {
-      case 1:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.position = new ttypes.Position();
-        this.position.read(input);
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 0:
-        input.skip(ftype);
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
         break;
-      default:
-        input.skip(ftype);
-    }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
-};
-
-FireflyService_getPhaseByFireflyPosition_args.prototype.write = function(output) {
-  output.writeStructBegin('FireflyService_getPhaseByFireflyPosition_args');
-  if (this.position !== null && this.position !== undefined) {
-    output.writeFieldBegin('position', Thrift.Type.STRUCT, 1);
-    this.position.write(output);
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
-};
-
-var FireflyService_getPhaseByFireflyPosition_result = function(args) {
-  this.success = null;
-  if (args) {
-    if (args.success !== undefined && args.success !== null) {
-      this.success = args.success;
-    }
-  }
-};
-FireflyService_getPhaseByFireflyPosition_result.prototype = {};
-FireflyService_getPhaseByFireflyPosition_result.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true) {
-    var ret = input.readFieldBegin();
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
-    }
-    switch (fid) {
-      case 0:
-      if (ftype == Thrift.Type.DOUBLE) {
-        this.success = input.readDouble();
-      } else {
-        input.skip(ftype);
       }
-      break;
-      case 0:
-        input.skip(ftype);
+      switch (fid) {
+        case 1:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.position = new ttypes.Position();
+          this.position.read(input);
+        } else {
+          input.skip(ftype);
+        }
         break;
-      default:
-        input.skip(ftype);
-    }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
-};
-
-FireflyService_getPhaseByFireflyPosition_result.prototype.write = function(output) {
-  output.writeStructBegin('FireflyService_getPhaseByFireflyPosition_result');
-  if (this.success !== null && this.success !== undefined) {
-    output.writeFieldBegin('success', Thrift.Type.DOUBLE, 0);
-    output.writeDouble(this.success);
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
-};
-
-var FireflyService_sendPhaseUpdate_args = function(args) {
-  this.firefly = null;
-  if (args) {
-    if (args.firefly !== undefined && args.firefly !== null) {
-      this.firefly = new ttypes.Firefly(args.firefly);
-    }
-  }
-};
-FireflyService_sendPhaseUpdate_args.prototype = {};
-FireflyService_sendPhaseUpdate_args.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true) {
-    var ret = input.readFieldBegin();
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
-    }
-    switch (fid) {
-      case 1:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.firefly = new ttypes.Firefly();
-        this.firefly.read(input);
-      } else {
-        input.skip(ftype);
+        case 0:
+          input.skip(ftype);
+          break;
+        default:
+          input.skip(ftype);
       }
-      break;
-      case 0:
-        input.skip(ftype);
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('FireflyService_getPhaseByFireflyPosition_args');
+    if (this.position !== null && this.position !== undefined) {
+      output.writeFieldBegin('position', Thrift.Type.STRUCT, 1);
+      this.position.write(output);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+const FireflyService_getPhaseByFireflyPosition_result = class {
+  constructor(args) {
+    this.success = null;
+    if (args) {
+      if (args.success !== undefined && args.success !== null) {
+        this.success = args.success;
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
         break;
-      default:
-        input.skip(ftype);
-    }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
-};
-
-FireflyService_sendPhaseUpdate_args.prototype.write = function(output) {
-  output.writeStructBegin('FireflyService_sendPhaseUpdate_args');
-  if (this.firefly !== null && this.firefly !== undefined) {
-    output.writeFieldBegin('firefly', Thrift.Type.STRUCT, 1);
-    this.firefly.write(output);
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
-};
-
-var FireflyService_sendPhaseUpdate_result = function(args) {
-};
-FireflyService_sendPhaseUpdate_result.prototype = {};
-FireflyService_sendPhaseUpdate_result.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true) {
-    var ret = input.readFieldBegin();
-    var ftype = ret.ftype;
-    if (ftype == Thrift.Type.STOP) {
-      break;
-    }
-    input.skip(ftype);
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
-};
-
-FireflyService_sendPhaseUpdate_result.prototype.write = function(output) {
-  output.writeStructBegin('FireflyService_sendPhaseUpdate_result');
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
-};
-
-var FireflyServiceClient = exports.Client = function(output, pClass) {
-  this.output = output;
-  this.pClass = pClass;
-  this._seqid = 0;
-  this._reqs = {};
-};
-FireflyServiceClient.prototype = {};
-FireflyServiceClient.prototype.seqid = function() { return this._seqid; };
-FireflyServiceClient.prototype.new_seqid = function() { return this._seqid += 1; };
-
-FireflyServiceClient.prototype.getPhaseByFireflyPosition = function(position, callback) {
-  this._seqid = this.new_seqid();
-  if (callback === undefined) {
-    var _defer = Q.defer();
-    this._reqs[this.seqid()] = function(error, result) {
-      if (error) {
-        _defer.reject(error);
-      } else {
-        _defer.resolve(result);
       }
-    };
-    this.send_getPhaseByFireflyPosition(position);
-    return _defer.promise;
-  } else {
-    this._reqs[this.seqid()] = callback;
-    this.send_getPhaseByFireflyPosition(position);
-  }
-};
-
-FireflyServiceClient.prototype.send_getPhaseByFireflyPosition = function(position) {
-  var output = new this.pClass(this.output);
-  var params = {
-    position: position
-  };
-  var args = new FireflyService_getPhaseByFireflyPosition_args(params);
-  try {
-    output.writeMessageBegin('getPhaseByFireflyPosition', Thrift.MessageType.CALL, this.seqid());
-    args.write(output);
-    output.writeMessageEnd();
-    return this.output.flush();
-  }
-  catch (e) {
-    delete this._reqs[this.seqid()];
-    if (typeof output.reset === 'function') {
-      output.reset();
-    }
-    throw e;
-  }
-};
-
-FireflyServiceClient.prototype.recv_getPhaseByFireflyPosition = function(input,mtype,rseqid) {
-  var callback = this._reqs[rseqid] || function() {};
-  delete this._reqs[rseqid];
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(input);
-    input.readMessageEnd();
-    return callback(x);
-  }
-  var result = new FireflyService_getPhaseByFireflyPosition_result();
-  result.read(input);
-  input.readMessageEnd();
-
-  if (null !== result.success) {
-    return callback(null, result.success);
-  }
-  return callback('getPhaseByFireflyPosition failed: unknown result');
-};
-
-FireflyServiceClient.prototype.sendPhaseUpdate = function(firefly, callback) {
-  this._seqid = this.new_seqid();
-  if (callback === undefined) {
-    var _defer = Q.defer();
-    this._reqs[this.seqid()] = function(error, result) {
-      if (error) {
-        _defer.reject(error);
-      } else {
-        _defer.resolve(result);
+      switch (fid) {
+        case 0:
+        if (ftype == Thrift.Type.DOUBLE) {
+          this.success = input.readDouble();
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 0:
+          input.skip(ftype);
+          break;
+        default:
+          input.skip(ftype);
       }
-    };
-    this.send_sendPhaseUpdate(firefly);
-    return _defer.promise;
-  } else {
-    this._reqs[this.seqid()] = callback;
-    this.send_sendPhaseUpdate(firefly);
-  }
-};
-
-FireflyServiceClient.prototype.send_sendPhaseUpdate = function(firefly) {
-  var output = new this.pClass(this.output);
-  var params = {
-    firefly: firefly
-  };
-  var args = new FireflyService_sendPhaseUpdate_args(params);
-  try {
-    output.writeMessageBegin('sendPhaseUpdate', Thrift.MessageType.CALL, this.seqid());
-    args.write(output);
-    output.writeMessageEnd();
-    return this.output.flush();
-  }
-  catch (e) {
-    delete this._reqs[this.seqid()];
-    if (typeof output.reset === 'function') {
-      output.reset();
+      input.readFieldEnd();
     }
-    throw e;
+    input.readStructEnd();
+    return;
   }
-};
 
-FireflyServiceClient.prototype.recv_sendPhaseUpdate = function(input,mtype,rseqid) {
-  var callback = this._reqs[rseqid] || function() {};
-  delete this._reqs[rseqid];
-  if (mtype == Thrift.MessageType.EXCEPTION) {
-    var x = new Thrift.TApplicationException();
-    x.read(input);
-    input.readMessageEnd();
-    return callback(x);
+  write (output) {
+    output.writeStructBegin('FireflyService_getPhaseByFireflyPosition_result');
+    if (this.success !== null && this.success !== undefined) {
+      output.writeFieldBegin('success', Thrift.Type.DOUBLE, 0);
+      output.writeDouble(this.success);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
   }
-  var result = new FireflyService_sendPhaseUpdate_result();
-  result.read(input);
-  input.readMessageEnd();
 
-  callback(null);
 };
-var FireflyServiceProcessor = exports.Processor = function(handler) {
-  this._handler = handler;
-};
-FireflyServiceProcessor.prototype.process = function(input, output) {
-  var r = input.readMessageBegin();
-  if (this['process_' + r.fname]) {
-    return this['process_' + r.fname].call(this, r.rseqid, input, output);
-  } else {
-    input.skip(Thrift.Type.STRUCT);
-    input.readMessageEnd();
-    var x = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN_METHOD, 'Unknown function ' + r.fname);
-    output.writeMessageBegin(r.fname, Thrift.MessageType.EXCEPTION, r.rseqid);
-    x.write(output);
-    output.writeMessageEnd();
-    output.flush();
+const FireflyService_sendPhaseUpdate_args = class {
+  constructor(args) {
+    this.firefly = null;
+    if (args) {
+      if (args.firefly !== undefined && args.firefly !== null) {
+        this.firefly = new ttypes.Firefly(args.firefly);
+      }
+    }
   }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 1:
+        if (ftype == Thrift.Type.STRUCT) {
+          this.firefly = new ttypes.Firefly();
+          this.firefly.read(input);
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 0:
+          input.skip(ftype);
+          break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('FireflyService_sendPhaseUpdate_args');
+    if (this.firefly !== null && this.firefly !== undefined) {
+      output.writeFieldBegin('firefly', Thrift.Type.STRUCT, 1);
+      this.firefly.write(output);
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
 };
-FireflyServiceProcessor.prototype.process_getPhaseByFireflyPosition = function(seqid, input, output) {
-  var args = new FireflyService_getPhaseByFireflyPosition_args();
-  args.read(input);
-  input.readMessageEnd();
-  if (this._handler.getPhaseByFireflyPosition.length === 1) {
-    Q.fcall(this._handler.getPhaseByFireflyPosition.bind(this._handler),
-      args.position
-    ).then(function(result) {
-      var result_obj = new FireflyService_getPhaseByFireflyPosition_result({success: result});
-      output.writeMessageBegin("getPhaseByFireflyPosition", Thrift.MessageType.REPLY, seqid);
-      result_obj.write(output);
-      output.writeMessageEnd();
-      output.flush();
-    }).catch(function (err) {
-      var result;
-      result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-      output.writeMessageBegin("getPhaseByFireflyPosition", Thrift.MessageType.EXCEPTION, seqid);
-      result.write(output);
-      output.writeMessageEnd();
-      output.flush();
+const FireflyService_sendPhaseUpdate_result = class {
+  constructor(args) {
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      input.skip(ftype);
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('FireflyService_sendPhaseUpdate_result');
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+const FireflyServiceClient = exports.Client = class FireflyServiceClient {
+  constructor(output, pClass) {
+    this.output = output;
+    this.pClass = pClass;
+    this._seqid = 0;
+    this._reqs = {};
+  }
+  seqid () { return this._seqid; }
+  new_seqid () { return this._seqid += 1; }
+
+  getPhaseByFireflyPosition (position) {
+    this._seqid = this.new_seqid();
+    const self = this;
+    return new Promise((resolve, reject) => {
+      self._reqs[self.seqid()] = (error, result) => {
+        return error ? reject(error) : resolve(result);
+      };
+      self.send_getPhaseByFireflyPosition(position);
     });
-  } else {
-    this._handler.getPhaseByFireflyPosition(args.position, function (err, result) {
-      var result_obj;
-      if ((err === null || typeof err === 'undefined')) {
-        result_obj = new FireflyService_getPhaseByFireflyPosition_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+  }
+
+  send_getPhaseByFireflyPosition (position) {
+    const output = new this.pClass(this.output);
+    const params = {
+      position: position
+    };
+    const args = new FireflyService_getPhaseByFireflyPosition_args(params);
+    try {
+      output.writeMessageBegin('getPhaseByFireflyPosition', Thrift.MessageType.CALL, this.seqid());
+      args.write(output);
+      output.writeMessageEnd();
+      return this.output.flush();
+    }
+    catch (e) {
+      delete this._reqs[this.seqid()];
+      if (typeof output.reset === 'function') {
+        output.reset();
+      }
+      throw e;
+    }
+  }
+
+  recv_getPhaseByFireflyPosition (input, mtype, rseqid) {
+    const callback = this._reqs[rseqid] || function() {};
+    delete this._reqs[rseqid];
+    if (mtype == Thrift.MessageType.EXCEPTION) {
+      const x = new Thrift.TApplicationException();
+      x.read(input);
+      input.readMessageEnd();
+      return callback(x);
+    }
+    const result = new FireflyService_getPhaseByFireflyPosition_result();
+    result.read(input);
+    input.readMessageEnd();
+
+    if (null !== result.success) {
+      return callback(null, result.success);
+    }
+    return callback('getPhaseByFireflyPosition failed: unknown result');
+  }
+
+  sendPhaseUpdate (firefly) {
+    this._seqid = this.new_seqid();
+    const self = this;
+    return new Promise((resolve, reject) => {
+      self._reqs[self.seqid()] = (error, result) => {
+        return error ? reject(error) : resolve(result);
+      };
+      self.send_sendPhaseUpdate(firefly);
+    });
+  }
+
+  send_sendPhaseUpdate (firefly) {
+    const output = new this.pClass(this.output);
+    const params = {
+      firefly: firefly
+    };
+    const args = new FireflyService_sendPhaseUpdate_args(params);
+    try {
+      output.writeMessageBegin('sendPhaseUpdate', Thrift.MessageType.CALL, this.seqid());
+      args.write(output);
+      output.writeMessageEnd();
+      return this.output.flush();
+    }
+    catch (e) {
+      delete this._reqs[this.seqid()];
+      if (typeof output.reset === 'function') {
+        output.reset();
+      }
+      throw e;
+    }
+  }
+
+  recv_sendPhaseUpdate (input, mtype, rseqid) {
+    const callback = this._reqs[rseqid] || function() {};
+    delete this._reqs[rseqid];
+    if (mtype == Thrift.MessageType.EXCEPTION) {
+      const x = new Thrift.TApplicationException();
+      x.read(input);
+      input.readMessageEnd();
+      return callback(x);
+    }
+    const result = new FireflyService_sendPhaseUpdate_result();
+    result.read(input);
+    input.readMessageEnd();
+
+    callback(null);
+  }
+};
+const FireflyServiceProcessor = exports.Processor = class FireflyServiceProcessor {
+  constructor(handler) {
+    this._handler = handler;
+  }
+  process (input, output) {
+    const r = input.readMessageBegin();
+    if (this['process_' + r.fname]) {
+      return this['process_' + r.fname].call(this, r.rseqid, input, output);
+    } else {
+      input.skip(Thrift.Type.STRUCT);
+      input.readMessageEnd();
+      const x = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN_METHOD, 'Unknown function ' + r.fname);
+      output.writeMessageBegin(r.fname, Thrift.MessageType.EXCEPTION, r.rseqid);
+      x.write(output);
+      output.writeMessageEnd();
+      output.flush();
+    }
+  }
+  process_getPhaseByFireflyPosition (seqid, input, output) {
+    const args = new FireflyService_getPhaseByFireflyPosition_args();
+    args.read(input);
+    input.readMessageEnd();
+    if (this._handler.getPhaseByFireflyPosition.length === 1) {
+      Promise.resolve(this._handler.getPhaseByFireflyPosition.bind(this._handler)(
+        args.position
+      )).then(result => {
+        const result_obj = new FireflyService_getPhaseByFireflyPosition_result({success: result});
         output.writeMessageBegin("getPhaseByFireflyPosition", Thrift.MessageType.REPLY, seqid);
-      } else {
-        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      }).catch(err => {
+        let result;
+        result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
         output.writeMessageBegin("getPhaseByFireflyPosition", Thrift.MessageType.EXCEPTION, seqid);
-      }
-      result_obj.write(output);
-      output.writeMessageEnd();
-      output.flush();
-    });
+        result.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+    } else {
+      this._handler.getPhaseByFireflyPosition(args.position, (err, result) => {
+        let result_obj;
+        if ((err === null || typeof err === 'undefined')) {
+          result_obj = new FireflyService_getPhaseByFireflyPosition_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+          output.writeMessageBegin("getPhaseByFireflyPosition", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("getPhaseByFireflyPosition", Thrift.MessageType.EXCEPTION, seqid);
+        }
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+    }
   }
-};
-FireflyServiceProcessor.prototype.process_sendPhaseUpdate = function(seqid, input, output) {
-  var args = new FireflyService_sendPhaseUpdate_args();
-  args.read(input);
-  input.readMessageEnd();
-  if (this._handler.sendPhaseUpdate.length === 1) {
-    Q.fcall(this._handler.sendPhaseUpdate.bind(this._handler),
-      args.firefly
-    ).then(function(result) {
-      var result_obj = new FireflyService_sendPhaseUpdate_result({success: result});
-      output.writeMessageBegin("sendPhaseUpdate", Thrift.MessageType.REPLY, seqid);
-      result_obj.write(output);
-      output.writeMessageEnd();
-      output.flush();
-    }).catch(function (err) {
-      var result;
-      result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-      output.writeMessageBegin("sendPhaseUpdate", Thrift.MessageType.EXCEPTION, seqid);
-      result.write(output);
-      output.writeMessageEnd();
-      output.flush();
-    });
-  } else {
-    this._handler.sendPhaseUpdate(args.firefly, function (err, result) {
-      var result_obj;
-      if ((err === null || typeof err === 'undefined')) {
-        result_obj = new FireflyService_sendPhaseUpdate_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+  process_sendPhaseUpdate (seqid, input, output) {
+    const args = new FireflyService_sendPhaseUpdate_args();
+    args.read(input);
+    input.readMessageEnd();
+    if (this._handler.sendPhaseUpdate.length === 1) {
+      Promise.resolve(this._handler.sendPhaseUpdate.bind(this._handler)(
+        args.firefly
+      )).then(result => {
+        const result_obj = new FireflyService_sendPhaseUpdate_result({success: result});
         output.writeMessageBegin("sendPhaseUpdate", Thrift.MessageType.REPLY, seqid);
-      } else {
-        result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      }).catch(err => {
+        let result;
+        result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
         output.writeMessageBegin("sendPhaseUpdate", Thrift.MessageType.EXCEPTION, seqid);
-      }
-      result_obj.write(output);
-      output.writeMessageEnd();
-      output.flush();
-    });
+        result.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+    } else {
+      this._handler.sendPhaseUpdate(args.firefly, (err, result) => {
+        let result_obj;
+        if ((err === null || typeof err === 'undefined')) {
+          result_obj = new FireflyService_sendPhaseUpdate_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+          output.writeMessageBegin("sendPhaseUpdate", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("sendPhaseUpdate", Thrift.MessageType.EXCEPTION, seqid);
+        }
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+    }
   }
 };

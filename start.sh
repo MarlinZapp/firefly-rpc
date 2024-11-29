@@ -6,8 +6,8 @@ MIN_FREQUENCY=0.005
 MAX_FREQUENCY_DEVIATION=0.01
 GRID_ROWS=2  # Number of rows in the grid
 GRID_COLS=2  # Number of columns in the grid
-CLIENT_PATH="./thrift/client-v0.0.1/firefly-thrift-client"
-SERVER_PATH="./thrift/server-v0.0.1/firefly-thrift-server"
+CLIENT_PATH="./thrift/client/firefly-thrift-client"
+SERVER_PATH="./thrift/server/firefly-thrift-server"
 # START_HTTP_SERVER="sfz --port 8000 --coi -r"
 
 # Array to hold process IDs
