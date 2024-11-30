@@ -24,7 +24,9 @@ read -p "Continue with [ENTER]..."
 
 # Start thrift server
 echo "Starting thrift server..."
-env $SERVER_PATH &
+env NUM_ROWS=$GRID_ROWS \
+    NUM_COLS=$GRID_COLS \
+    $SERVER_PATH &
 PIDS+=($!)  # Add server PID to the array
 echo "Thrift server started with PID ${PIDS[-1]}."
 

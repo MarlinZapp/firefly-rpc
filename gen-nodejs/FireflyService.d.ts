@@ -27,6 +27,10 @@ declare class Client {
     sendPhaseUpdate(firefly: Firefly): Promise<void>;
 
     sendPhaseUpdate(firefly: Firefly, callback?: (error: void, response: void)=>void): void;
+
+    getFireflies(): Promise<Firefly[]>;
+
+    getFireflies(callback?: (error: void, response: Firefly[])=>void): void;
   }
 
 declare class Processor {
@@ -36,4 +40,5 @@ declare class Processor {
   process(input: thrift.TProtocol, output: thrift.TProtocol): void;
     process_getPhaseByFireflyPosition(seqid: number, input: thrift.TProtocol, output: thrift.TProtocol): void;
     process_sendPhaseUpdate(seqid: number, input: thrift.TProtocol, output: thrift.TProtocol): void;
+    process_getFireflies(seqid: number, input: thrift.TProtocol, output: thrift.TProtocol): void;
 }

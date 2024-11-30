@@ -1,20 +1,18 @@
 import { createConnection, createClient } from "thrift";
 import { Client } from "./gen-nodejs/FireflyService.js";
-import { Position } from "./gen-nodejs/firefly_types.js";
 
 const connection = createConnection("localhost", 9090, {});
 
 const client = createClient(Client, connection);
 
 // Define number of rows and columns
-const m = 9; // Number of rows
-const n = 16; // Number of columns
+const m = process.env.GRID_ROWS; // Number of rows
+const n = process.env.GRID_COLS; // Number of columns
 let initialized = false;
-
-setup_fireflies(m, n);
 
 // Reference to the grid container
 const gridContainer = document.getElementById("grid");
+/** @type {HTMLDivElement[][]} */
 let cells = [[]];
 
 initializeGrid(m, n);
@@ -28,16 +26,16 @@ setInterval(() => renderGrid(m, n), 100); // Update every x ms
  * @param {number} ncols - Number of columns
  */
 function renderGrid(mrows, ncols) {
-  for (let i = 0; i < mrows; i++) {
-    const row = get_grid_row(i);
-    for (let j = 0; j < ncols; j++) {
-      if (row[j] === 0) {
-        cells[i][j].style.backgroundColor = "#14110d";
+  client.getFireflies().then((fireflies) => {
+    for (const firefly of fireflies) {
+      let cell = cells[firefly.position.y][firefly.position.x];
+      if (firefly.phase > Math.PI) {
+        cell.style.backgroundColor = "#d49d0e";
       } else {
-        cells[i][j].style.backgroundColor = "#d49d0e";
+        cell.style.backgroundColor = "#14110d";
       }
     }
-  }
+  });
 }
 
 /**

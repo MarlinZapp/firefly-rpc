@@ -196,6 +196,101 @@ const FireflyService_sendPhaseUpdate_result = class {
   }
 
 };
+const FireflyService_getFireflies_args = class {
+  constructor(args) {
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      input.skip(ftype);
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('FireflyService_getFireflies_args');
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
+const FireflyService_getFireflies_result = class {
+  constructor(args) {
+    this.success = null;
+    if (args) {
+      if (args.success !== undefined && args.success !== null) {
+        this.success = Thrift.copyList(args.success, [ttypes.Firefly]);
+      }
+    }
+  }
+
+  read (input) {
+    input.readStructBegin();
+    while (true) {
+      const ret = input.readFieldBegin();
+      const ftype = ret.ftype;
+      const fid = ret.fid;
+      if (ftype == Thrift.Type.STOP) {
+        break;
+      }
+      switch (fid) {
+        case 0:
+        if (ftype == Thrift.Type.LIST) {
+          this.success = [];
+          const _rtmp31 = input.readListBegin();
+          const _size0 = _rtmp31.size || 0;
+          for (let _i2 = 0; _i2 < _size0; ++_i2) {
+            let elem3 = null;
+            elem3 = new ttypes.Firefly();
+            elem3.read(input);
+            this.success.push(elem3);
+          }
+          input.readListEnd();
+        } else {
+          input.skip(ftype);
+        }
+        break;
+        case 0:
+          input.skip(ftype);
+          break;
+        default:
+          input.skip(ftype);
+      }
+      input.readFieldEnd();
+    }
+    input.readStructEnd();
+    return;
+  }
+
+  write (output) {
+    output.writeStructBegin('FireflyService_getFireflies_result');
+    if (this.success !== null && this.success !== undefined) {
+      output.writeFieldBegin('success', Thrift.Type.LIST, 0);
+      output.writeListBegin(Thrift.Type.STRUCT, this.success.length);
+      for (let iter4 in this.success) {
+        if (this.success.hasOwnProperty(iter4)) {
+          iter4 = this.success[iter4];
+          iter4.write(output);
+        }
+      }
+      output.writeListEnd();
+      output.writeFieldEnd();
+    }
+    output.writeFieldStop();
+    output.writeStructEnd();
+    return;
+  }
+
+};
 const FireflyServiceClient = exports.Client = class FireflyServiceClient {
   constructor(output, pClass) {
     this.output = output;
@@ -304,6 +399,54 @@ const FireflyServiceClient = exports.Client = class FireflyServiceClient {
 
     callback(null);
   }
+
+  getFireflies () {
+    this._seqid = this.new_seqid();
+    const self = this;
+    return new Promise((resolve, reject) => {
+      self._reqs[self.seqid()] = (error, result) => {
+        return error ? reject(error) : resolve(result);
+      };
+      self.send_getFireflies();
+    });
+  }
+
+  send_getFireflies () {
+    const output = new this.pClass(this.output);
+    const args = new FireflyService_getFireflies_args();
+    try {
+      output.writeMessageBegin('getFireflies', Thrift.MessageType.CALL, this.seqid());
+      args.write(output);
+      output.writeMessageEnd();
+      return this.output.flush();
+    }
+    catch (e) {
+      delete this._reqs[this.seqid()];
+      if (typeof output.reset === 'function') {
+        output.reset();
+      }
+      throw e;
+    }
+  }
+
+  recv_getFireflies (input, mtype, rseqid) {
+    const callback = this._reqs[rseqid] || function() {};
+    delete this._reqs[rseqid];
+    if (mtype == Thrift.MessageType.EXCEPTION) {
+      const x = new Thrift.TApplicationException();
+      x.read(input);
+      input.readMessageEnd();
+      return callback(x);
+    }
+    const result = new FireflyService_getFireflies_result();
+    result.read(input);
+    input.readMessageEnd();
+
+    if (null !== result.success) {
+      return callback(null, result.success);
+    }
+    return callback('getFireflies failed: unknown result');
+  }
 };
 const FireflyServiceProcessor = exports.Processor = class FireflyServiceProcessor {
   constructor(handler) {
@@ -390,6 +533,42 @@ const FireflyServiceProcessor = exports.Processor = class FireflyServiceProcesso
         } else {
           result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
           output.writeMessageBegin("sendPhaseUpdate", Thrift.MessageType.EXCEPTION, seqid);
+        }
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+    }
+  }
+  process_getFireflies (seqid, input, output) {
+    const args = new FireflyService_getFireflies_args();
+    args.read(input);
+    input.readMessageEnd();
+    if (this._handler.getFireflies.length === 0) {
+      Promise.resolve(this._handler.getFireflies.bind(this._handler)(
+      )).then(result => {
+        const result_obj = new FireflyService_getFireflies_result({success: result});
+        output.writeMessageBegin("getFireflies", Thrift.MessageType.REPLY, seqid);
+        result_obj.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      }).catch(err => {
+        let result;
+        result = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+        output.writeMessageBegin("getFireflies", Thrift.MessageType.EXCEPTION, seqid);
+        result.write(output);
+        output.writeMessageEnd();
+        output.flush();
+      });
+    } else {
+      this._handler.getFireflies((err, result) => {
+        let result_obj;
+        if ((err === null || typeof err === 'undefined')) {
+          result_obj = new FireflyService_getFireflies_result((err !== null || typeof err === 'undefined') ? err : {success: result});
+          output.writeMessageBegin("getFireflies", Thrift.MessageType.REPLY, seqid);
+        } else {
+          result_obj = new Thrift.TApplicationException(Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+          output.writeMessageBegin("getFireflies", Thrift.MessageType.EXCEPTION, seqid);
         }
         result_obj.write(output);
         output.writeMessageEnd();
