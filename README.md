@@ -2,14 +2,15 @@
 
 Go to the [Thrift Server](https://github.com/MarlinZapp/firefly-thrift-server) and [Thrift Client](https://github.com/MarlinZapp/firefly-thrift-client) repositories.
 
-With `cargo build --release`, you can create the up to date releases of both of them.
+There you can find the [server](https://github.com/MarlinZapp/firefly-thrift-server/releases) and [client](https://github.com/MarlinZapp/firefly-thrift-client/releases/) releases.
 
-Copy the releases from `target/release` into the `firefly/client` and `firefly/server` folders.
+Copy the unzipped releases into `firefly/client` and `firefly/server` folders in the project directory.
 
-Make sure node.js is installed. Install the node packages by running `npm i`.
+Make sure node.js is installed. Install the node packages by running `npm i` in the project directory.
 
-Afterwards run the simulation by executing the `start.sh` script. You can adjust a lot of variables in the `start.sh` script from this repository.
+Afterwards run the simulation by executing the `start.sh` script.
 Press enter to start and stop the simulation.
+You can adjust a lot of variables in the `start.sh` script from this repository.
 
 Open your browser on `localhost:3000`. Enjoy.
 
