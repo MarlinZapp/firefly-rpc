@@ -22,7 +22,7 @@ body {
     font-size: 1em;
     cursor: pointer;
     border: 1px solid #555;
-    background: url("./assets/firefly.svg");
+    background: url("./firefly.svg");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;

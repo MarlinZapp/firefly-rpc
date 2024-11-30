@@ -1,13 +1,14 @@
 #!/bin/bash
 
 # Configuration Variables
-COUPLING_STRENGTH=0.5
-MIN_FREQUENCY=0.005
-MAX_FREQUENCY_DEVIATION=0.01
-GRID_ROWS=2  # Number of rows in the grid
-GRID_COLS=2  # Number of columns in the grid
-CLIENT_PATH="./thrift/client/firefly-thrift-client"
-SERVER_PATH="./thrift/server/firefly-thrift-server"
+COUPLING_STRENGTH=0.2
+MIN_FREQUENCY=0.2
+MAX_FREQUENCY_DEVIATION=0.2
+GRID_ROWS=9  # Number of rows in the grid
+GRID_COLS=16  # Number of columns in the grid
+THRIFT_CLIENT_PATH="./firefly/client/firefly-thrift-client"
+THRIFT_SERVER_PATH="./firefly/server/firefly-thrift-server"
+NODE_SERVER_PATH="./server.js"
 # START_HTTP_SERVER="sfz --port 8000 --coi -r"
 
 # Array to hold process IDs
@@ -26,7 +27,7 @@ read -p "Continue with [ENTER]..."
 echo "Starting thrift server..."
 env NUM_ROWS=$GRID_ROWS \
     NUM_COLS=$GRID_COLS \
-    $SERVER_PATH &
+    $THRIFT_SERVER_PATH &
 PIDS+=($!)  # Add server PID to the array
 echo "Thrift server started with PID ${PIDS[-1]}."
 
@@ -51,11 +52,22 @@ for ((x=0; x<$GRID_COLS; x++)); do
             COUPLING_STRENGTH=$COUPLING_STRENGTH \
             MIN_FREQUENCY=$MIN_FREQUENCY \
             MAX_FREQUENCY_DEVIATION=$MAX_FREQUENCY_DEVIATION \
-            $CLIENT_PATH &
+            $THRIFT_CLIENT_PATH &
         PIDS+=($!)  # Add client PID to the array
         echo "Client started with PID ${PIDS[-1]}."
     done
 done
+
+sleep 1
+
+# Start node server
+echo "Starting node server..."
+env NUM_ROWS=$GRID_ROWS \
+    NUM_COLS=$GRID_COLS \
+    node $NODE_SERVER_PATH &
+PIDS+=($!)  # Add server PID to the array
+echo "Node server started with PID ${PIDS[-1]}."
+
 
 echo "All clients and server started."
 

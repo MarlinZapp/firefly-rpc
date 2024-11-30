@@ -1,4 +1,4 @@
-releases/
-thrift/
+firefly/client/*
+firefly/server/*
 node_modules/
 package-lock.json
