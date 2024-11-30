@@ -6,9 +6,9 @@ With `cargo build --release`, you can create the up to date releases of both of 
 
 Copy the releases from `target/release` into the `firefly/client` and `firefly/server` folders.
 
-You can adjust a lot of variables in the `start.sh` script from this repository.
+Make sure node.js is installed. Install the node packages by running `npm i`.
 
-Afterwards run the simulation by executing the `start.sh` script.
+Afterwards run the simulation by executing the `start.sh` script. You can adjust a lot of variables in the `start.sh` script from this repository.
 Press enter to start and stop the simulation.
 
 Open your browser on `localhost:3000`. Enjoy.
